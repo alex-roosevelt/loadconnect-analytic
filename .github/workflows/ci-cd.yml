@@ -3,7 +3,7 @@ name: CI/CD
 on:
   push:
     branches:
-      - main
+      - main  # Запуск на ветке main
   pull_request:
     branches:
       - main
@@ -11,33 +11,19 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Check out code
         uses: actions/checkout@v2
 
       - name: Set up JDK 21
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           java-version: '21'
           distribution: 'temurin'
-
-      - name: Cache Maven packages
-        uses: actions/cache@v3
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-m2
 
       - name: Build with Maven
         run: mvn clean package
 
       - name: Run Tests
         run: mvn test
-
-#  deploy:
-#    needs: build
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Deploy Application
-#        # Добавьте сюда шаги для деплоя в ваше целевое окружение
