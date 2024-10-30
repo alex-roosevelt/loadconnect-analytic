@@ -3,10 +3,11 @@ name: CI/CD
 on:
   push:
     branches:
-      - main  # Запуск на ветке main
+      - dev  # Запуск на ветке dev
   pull_request:
     branches:
-      - main
+      - dev
+      - master
 
 jobs:
   build:
